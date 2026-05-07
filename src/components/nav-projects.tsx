@@ -38,6 +38,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth.store";
 import { useState } from "react";
+import Link from "next/link";
 
 export function NavProjects({
   projects,
@@ -145,10 +146,10 @@ export function NavProjects({
         {projects.map((item) => (
           <SidebarMenuItem key={item.title}>
             <SidebarMenuButton asChild>
-              <a href={`/dashboard/${item.id}`}>
+              <Link href={`/dashboard/${item.id}`}>
                 <FileText className="text-muted-foreground" />
                 <span>{item.title}</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
