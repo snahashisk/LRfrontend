@@ -58,12 +58,10 @@ export function NavProjects({
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     if (!title || !description) {
       toast.error("Title and description are required");
       return;
     }
-
     try {
       const response = await axios.post(
         "http://localhost:8000/api/v1/topic/create-topic",
@@ -78,13 +76,26 @@ export function NavProjects({
           withCredentials: true,
         },
       );
-
-      toast.success("Project created successfully");
+      toast.success("Topic created successfully");
       setTitle("");
       setDescription("");
       setIsOpen(false);
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Failed to create project");
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      await axios.delete(`http://localhost:8000/api/v1/topic/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        withCredentials: true,
+      });
+      toast.success("Topic deleted successfully");
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || "Failed to delete topic");
     }
   };
 
@@ -163,18 +174,22 @@ export function NavProjects({
                 side={isMobile ? "bottom" : "right"}
                 align={isMobile ? "end" : "start"}
               >
-                <DropdownMenuItem>
-                  <FolderIcon className="text-muted-foreground" />
-                  <span>View Project</span>
+                <DropdownMenuItem asChild>
+                  <Link href={`/dashboard/${item.id}`}>
+                    <FolderIcon className="text-muted-foreground" />
+                    <span>View Topic</span>
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <ArrowRightIcon className="text-muted-foreground" />
-                  <span>Share Project</span>
+                  <span>Share Topic</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Trash2Icon className="text-muted-foreground" />
-                  <span>Delete Project</span>
+                <DropdownMenuItem asChild>
+                  <div className="flex cursor-pointer" onClick={() => handleDelete(item.id)}>
+                    <Trash2Icon className="text-muted-foreground" />
+                    <span>Delete Topic</span>
+                  </div>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

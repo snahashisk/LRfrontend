@@ -169,9 +169,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           },
           withCredentials: true,
         });
-        console.log(response.data.data);
         setTopics(
-          response.data.data.map((topic: any) => ({
+          [...response.data.data].reverse().map((topic: any) => ({
             title: topic.title,
             description: topic.description,
             id: topic._id,

@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -131,4 +132,62 @@
   html {
     @apply font-sans;
   }
+}
+
+/* Basic editor styles */
+.tiptap {
+  :first-child {
+    margin-top: 0;
+  }
+
+  blockquote {
+    @apply mt-6 border-l-2 pl-6 italic;
+  }
+}
+
+.ProseMirror h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.ProseMirror h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.ProseMirror h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.ProseMirror h4 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ProseMirror {
+  outline: none;
+  height: 80vh;
+  line-height: 1.4;
+  overflow-y: scroll;
+}
+
+.ProseMirror p {
+  margin: 0.5rem 0;
+}
+
+.ProseMirror blockquote {
+  margin: 0.75rem 0;
+  border-left: 2px solid var(--border);
+  padding-left: 1rem;
+  font-style: italic;
+}
+
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
 }
